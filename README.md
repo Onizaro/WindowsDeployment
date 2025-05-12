@@ -120,5 +120,61 @@ Congratulations you have your custom Windows image !
 
 ## Step 5: Configuring netbootxyz
 
-Netbootxyz uses iPXE, which allows us to boot via network. So we will use netbootxyz to deploy our custom WinPE and Windows 10 images.
+Netbootxyz uses iPXE, which allows us to boot via network. So we will use netbootxyz to deploy our custom WinPE and Windows 10 image.
 
+I used docker-compose and the following `docker-compose.yml` configuration to run my netbootxyz server :
+
+```
+---
+services:
+  netbootxyz:
+    image: lscr.io/linuxserver/netbootxyz:latest
+    container_name: netbootxyz
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+#      - MENU_VERSION=1.9.9 #optional
+      - PORT_RANGE=30000:30010 #optional
+      - SUBFOLDER=/ #optional
+      - NGINX_PORT=80 #optional
+      - WEB_APP_PORT=3000 #optional
+    volumes:
+      - ./config:/config
+      - ./assets:/assets #optional
+    ports:
+      - 3000:3000
+      - 69:69/udp
+      - 8080:80 #optional
+    network_mode: "host"
+    restart: unless-stopped
+```
+
+In the same folder where is located your docker-compose file, create 2 folders, `config` and `assets`.
+
+Leave `config` empty.
+
+### Step 5.1 (optionnal): adding WinPE to netbootxyz
+
+Open again the Deployment and Imaging tool environment and run this in order to create an iso file from your WinPE version:
+
+```
+MakeWinPEMedia /iso C:\WinPE_amd64 C:\WinPE_amd64\WinPE.iso
+```
+
+![alt text](image-1.png)
+
+Mount the image 
+
+![alt text](image-2.png)
+
+Now go back to the assets folder and create this WinPE folder in it :
+
+```
+.
+├── assets
+│   └── WinPE
+│       └── x64
+├── config
+└── docker-compose.yml
+```
