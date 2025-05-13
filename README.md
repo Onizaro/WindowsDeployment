@@ -207,6 +207,7 @@ https://netboot.xyz/docs
 There is many way to configure your dhcp server, I used `Windows server`. You can check in the documentation if you use dnsmasq. On Windows server, you simply have to set 2 rules, 66 and 67 like so:
 
 ![alt text](image-7.png)
+
 (You need to change the ip adress)
 
 Use `netboot.xyz.kpxe` if you will boot using ipv4 and `netboot.xyz.efi` for http boot.
