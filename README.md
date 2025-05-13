@@ -209,7 +209,7 @@ There is many way to configure your dhcp server, I used `Windows server`. You ca
 ![alt text](image-7.png)
 (You need to change the ip adress)
 
-Use `netboot.xyz.ipxe` if you will boot using ipv4 and `netboot.xyz.efi` for http boot.
+Use `netboot.xyz.kpxe` if you will boot using ipv4 and `netboot.xyz.efi` for http boot.
 
 
 
